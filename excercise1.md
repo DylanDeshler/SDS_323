@@ -17,6 +17,7 @@ DATA VISUALIZATION
 
     data <- read.csv("~/Desktop/SDS323-master/data/ABIA.csv")
 
+    # clean the data
     data$Year <- NULL
     data$Month <- as.factor(data$Month)
     data$DayofMonth <- as.factor(data$DayofMonth)
@@ -83,6 +84,7 @@ DATA VISUALIZATION
     ##  Max.   :458.00    Max.   :1823.0  
     ##  NA's   :79513     NA's   :1601
 
+    # change the levels to make the data more readable
     levels <- levels(data$DayOfWeek)
     levels <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
     levels(data$DayOfWeek) <- levels
@@ -92,12 +94,15 @@ DATA VISUALIZATION
     levels(data$Month) <- levels
 
     set.seed(1234)
+
+    # group data by DayOfWeek
     delay_summ <- data %>% group_by(DayOfWeek) %>% summarize(sum_delay.mean = mean(DepDelay + ArrDelay, na.rm = TRUE))
 
     ggplot(data = delay_summ, aes(x = reorder(DayOfWeek, sum_delay.mean), y = sum_delay.mean, fill=DayOfWeek)) + geom_bar(stat="identity") + labs(x = "Day", y = "Mean Delay", title = "Flight Delay by Weekday") + coord_flip()
 
 ![](excercise1_files/figure-markdown_strict/unnamed-chunk-2-1.png)
 
+    # group data by Month
     month <- data %>% group_by(Month) %>% summarize(delay = mean(DepDelay + ArrDelay, na.rm = TRUE))
 
     ggplot(data = month, aes(x = reorder(Month, delay), y = delay, fill=Month)) + geom_bar(stat = "identity") + labs(x = "Month", y = "Mean Delay", title = "Flight Delay by Month") + coord_flip()
@@ -107,6 +112,7 @@ DATA VISUALIZATION
     saturday <- subset(data, data$DayOfWeek=="Saturday")
     wednesday <- subset(data, data$DayOfWeek=="Wednesday")
 
+    # bootstrap for mean delay on saturday and wednesday
     delay.saturday <- c()
     delay.wednesday <- c()
     for(i in 1:1000) {
@@ -134,6 +140,9 @@ DATA VISUALIZATION
 
 ![](excercise1_files/figure-markdown_strict/unnamed-chunk-2-6.png)
 
+    # the bootstrap distributions are approximately normal
+
+    # 95% confidence intervals
     quantile(delay.saturday, c(0.025, 0.975))
 
     ##     2.5%    97.5% 
@@ -145,7 +154,10 @@ DATA VISUALIZATION
     ## 11.44269 13.60888
 
     best <- subset(data, data$Month=="September" & (data$DayOfWeek=="Saturday" | data$DayOfWeek=="Wednesday"))
+
+    # bootstrap for "best" travel days
     means <- replicate(1000, mean(sample(best$Delay, nrow(best), replace = TRUE), na.rm = TRUE))
+
     hist(means)
 
 ![](excercise1_files/figure-markdown_strict/unnamed-chunk-2-7.png)
@@ -156,40 +168,41 @@ DATA VISUALIZATION
 ![](excercise1_files/figure-markdown_strict/unnamed-chunk-2-8.png)
 
     # the bootstrap distribution is approximately normal
+
+    # 95% confidence interval
     quantile(means, c(0.025, 0.975))
 
     ##       2.5%      97.5% 
     ## -2.6278043  0.3682786
 
-To better analyze the data I defined delay as the sum of departure and
-arrival delay. When flying on a Saturday, we can say with 95% confidence
-that the average delay (a sum of departure and arrival delay) will be
-between 11.04 and 13.38 minutes. We know this because the bootstrap
-distribution is approximately normal. For wednesday, with 95% confidence
-the average delay will be between 11.44 and 13.61 minues. When analyzing
-delay by month, 3 distinct groups appear: September, October, and
-November easily have the shortest average delays; January, April, May,
-July, August, and February; and June, March, and December. June is the
-begining of summer and the end of the school year, March has spring
-break for UT Austin and other nearby universities (when many students
-will be flying in and out of AUS on the same day), and December is the
-worst travel month of the year because of Christmas and winter break.
-The best days to fly out of AUS are wednesday and saturday, and the best
-months are September, October, and November. If we had all of the
-freedom in the world to plan our flight we would choose to fly in and
-out of AUS on wednesday and saturday of September. Flying out on one of
-these ideal days, with 95% confidence we can expect our delay to be
-between -2.61 and 0.34 minutes. Meaning we will likely have no delays,
-and even more so our flights will be shorter than advertised!
+I think the plots showcase my point without explanation, but I have also
+provided a more detailed explanation. To better analyze the data I
+defined delay as the sum of departure and arrival delay. When flying on
+a Saturday, we can say with 95% confidence that the average delay (a sum
+of departure and arrival delay) will be between 11.04 and 13.38 minutes.
+We know this because the bootstrap distribution is approximately normal.
+For wednesday, with 95% confidence the average delay will be between
+11.44 and 13.61 minues. When analyzing delay by month, 3 distinct groups
+appear: September, October, and November easily have the shortest
+average delays; January, April, May, July, August, and February; and
+June, March, and December. June is the begining of summer and the end of
+the school year, March has spring break for UT Austin and other nearby
+universities (when many students will be flying in and out of AUS on the
+same day), and December is the worst travel month of the year because of
+Christmas and winter break. The best days to fly out of AUS are
+Wednesday and Saturday, and the best months are September, October, and
+November. If we had all of the freedom in the world to plan our flight
+we would choose to fly in and out of AUS on Wednesday and Saturday of
+September. Flying out on one of these ideal days, with 95% confidence we
+can expect our delay to be between -2.61 and 0.34 minutes. Meaning we
+will likely have no delays, and even more so our flights will be shorter
+than advertised!
 
 REGRESSION PRACTICE
 
 Import the raw data
 
     data <- read.csv("~/Desktop/SDS323-master/data/creatinine.csv")
-
-Lets take a look at the data
-
     summary(data)
 
     ##       age          creatclear   
@@ -207,7 +220,7 @@ Plot the data
     linear <- lm(data = data, creatclear ~ age)
     ggplot(data=data, aes(x=data$age, y = data$creatclear)) + geom_point() + geom_smooth(method = 'lm', se = FALSE)
 
-![](excercise1_files/figure-markdown_strict/unnamed-chunk-5-1.png)
+![](excercise1_files/figure-markdown_strict/unnamed-chunk-4-1.png)
 
     summary(linear)
 
@@ -288,7 +301,7 @@ non-green building rent within their clusters.
     # plot mean RelativeRent vs green_rating 
     ggplot(data = d1) + geom_bar(mapping = aes(x = green_rating, y = mean, fill = green_rating), stat = "identity") + labs(x = "Green Certification", y = "Mean Relative Rent (per square foot)", title = "Relative Rent for Green and Non-Green Buildings", fill = "Green Certification")
 
-![](excercise1_files/figure-markdown_strict/unnamed-chunk-7-1.png)
+![](excercise1_files/figure-markdown_strict/unnamed-chunk-6-1.png)
 
     # the plot seems to indicate that green buildings are more profitable, but these distributions have large standard deviations 10 and 6.9 respectively (non-green, green)
 
@@ -306,12 +319,12 @@ non-green building rent within their clusters.
 
     hist(g.mean)
 
-![](excercise1_files/figure-markdown_strict/unnamed-chunk-7-2.png)
+![](excercise1_files/figure-markdown_strict/unnamed-chunk-6-2.png)
 
     qqnorm(g.mean)
     qqline(g.mean)
 
-![](excercise1_files/figure-markdown_strict/unnamed-chunk-7-3.png)
+![](excercise1_files/figure-markdown_strict/unnamed-chunk-6-3.png)
 
     quantile(g.mean, c(0.025, 0.975))
 
@@ -320,12 +333,12 @@ non-green building rent within their clusters.
 
     hist(r.mean)
 
-![](excercise1_files/figure-markdown_strict/unnamed-chunk-7-4.png)
+![](excercise1_files/figure-markdown_strict/unnamed-chunk-6-4.png)
 
     qqnorm(r.mean)
     qqline(r.mean)
 
-![](excercise1_files/figure-markdown_strict/unnamed-chunk-7-5.png)
+![](excercise1_files/figure-markdown_strict/unnamed-chunk-6-5.png)
 
     quantile(r.mean, c(0.025, 0.975))
 
@@ -383,21 +396,21 @@ Specifically, buildings that have between 10 and 20 stories.
 
     hist(g.mean)
 
-![](excercise1_files/figure-markdown_strict/unnamed-chunk-8-1.png)
+![](excercise1_files/figure-markdown_strict/unnamed-chunk-7-1.png)
 
     hist(r.mean)
 
-![](excercise1_files/figure-markdown_strict/unnamed-chunk-8-2.png)
+![](excercise1_files/figure-markdown_strict/unnamed-chunk-7-2.png)
 
     qqnorm(g.mean)
     qqline(g.mean)
 
-![](excercise1_files/figure-markdown_strict/unnamed-chunk-8-3.png)
+![](excercise1_files/figure-markdown_strict/unnamed-chunk-7-3.png)
 
     qqnorm(r.mean)
     qqline(r.mean)
 
-![](excercise1_files/figure-markdown_strict/unnamed-chunk-8-4.png)
+![](excercise1_files/figure-markdown_strict/unnamed-chunk-7-4.png)
 
     # bootstrap distributions are approximately normal
 
@@ -456,7 +469,7 @@ MILK PRICES
 
     ggplot(data = milk, aes(x = price, y = sales)) + geom_point()
 
-![](excercise1_files/figure-markdown_strict/unnamed-chunk-9-1.png)
+![](excercise1_files/figure-markdown_strict/unnamed-chunk-8-1.png)
 
 The data appears to be quadratic or an inverse power (i.e y = x^-a)
 
@@ -471,7 +484,7 @@ The data appears to be quadratic or an inverse power (i.e y = x^-a)
     # plotting log(sales) vs log(price) indicates a roughly linear relationship between the two, this is motivated by economic theory
     ggplot(data = milk, aes(x = log(price), y = log(sales))) + geom_point()
 
-![](excercise1_files/figure-markdown_strict/unnamed-chunk-10-1.png)
+![](excercise1_files/figure-markdown_strict/unnamed-chunk-9-1.png)
 
     model5 <- glm(data = milk, log(sales) ~ log(price))
 
@@ -501,7 +514,7 @@ The data appears to be quadratic or an inverse power (i.e y = x^-a)
 
     ggplot(data = milk, aes(x = price, y = sales)) + geom_point() + stat_function(fun = f2, color = "blue") + stat_function(fun = f1, color = "red") + stat_function(fun = f3, color = "green")
 
-![](excercise1_files/figure-markdown_strict/unnamed-chunk-10-2.png) We
+![](excercise1_files/figure-markdown_strict/unnamed-chunk-9-2.png) We
 can see that the red line tails upwards as price increases which is most
 likely a failure of the model rather than representative of the actual
 data. Hence why the blue line (model 3) is the more accurate and
@@ -550,7 +563,7 @@ model to fit our data.
       xlab("Price") + 
       ylab("Net Profit")
 
-![](excercise1_files/figure-markdown_strict/unnamed-chunk-11-1.png)
+![](excercise1_files/figure-markdown_strict/unnamed-chunk-10-1.png)
 Given c &gt;= P, this graph plots net profit vs price of milk. For c =
 1, we can see that maximum profit occurs around P = 2.5 and net profit
 seems to be slightly less thatn 40. Solving the function directly
