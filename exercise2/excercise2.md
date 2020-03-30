@@ -2,17 +2,18 @@ KNN PRACTICE
 
     library(tidyverse)
 
-    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
+    ## ── Attaching packages ────────────────────────────────────────────────── tidyverse 1.3.0 ──
 
     ## ✓ ggplot2 3.2.1     ✓ purrr   0.3.3
     ## ✓ tibble  2.1.3     ✓ dplyr   0.8.3
     ## ✓ tidyr   1.0.0     ✓ stringr 1.4.0
     ## ✓ readr   1.3.1     ✓ forcats 0.4.0
 
-    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ───────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
+    library(ggplot2)
     sclass <- read.csv("~/Documents/R/SDS 323/SDS323-master/data/sclass.csv")
 
     # trim subsets
@@ -20,11 +21,11 @@ KNN PRACTICE
     sclass65AMG <- dplyr::select(subset(sclass, trim == "65 AMG"), mileage, price)
 
     # plot price vs mileage for each trim
-    plot(sclass65AMG$mileage, sclass65AMG$price)
+    ggplot(data = sclass65AMG) + geom_point(aes(x = mileage, y = price)) + labs(title = "65 AMG trim")
 
 ![](excercise2_files/figure-markdown_strict/unnamed-chunk-1-1.png)
 
-    plot(sclass350$mileage, sclass350$price)
+    ggplot(data = sclass350) + geom_point(aes(x = mileage, y = price)) + labs(title = "350 trim")
 
 ![](excercise2_files/figure-markdown_strict/unnamed-chunk-1-2.png)
 Looking at the two plots, the data seems to indicate different

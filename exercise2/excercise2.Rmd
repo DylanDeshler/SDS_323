@@ -1,6 +1,6 @@
 ---
 title: "excercise2"
-output: md_document
+output: pdf_document
 ---
 
 KNN PRACTICE
@@ -9,6 +9,7 @@ KNN PRACTICE
 
 ```{r}
 library(tidyverse)
+library(ggplot2)
 sclass <- read.csv("~/Documents/R/SDS 323/SDS323-master/data/sclass.csv")
 
 # trim subsets
@@ -16,8 +17,8 @@ sclass350 <- dplyr::select(subset(sclass, trim == "350"), mileage, price)
 sclass65AMG <- dplyr::select(subset(sclass, trim == "65 AMG"), mileage, price)
 
 # plot price vs mileage for each trim
-plot(sclass65AMG$mileage, sclass65AMG$price)
-plot(sclass350$mileage, sclass350$price)
+ggplot(data = sclass65AMG) + geom_point(aes(x = mileage, y = price)) + labs(title = "65 AMG trim")
+ggplot(data = sclass350) + geom_point(aes(x = mileage, y = price)) + labs(title = "350 trim")
 ```
 Looking at the two plots, the data seems to indicate different relationships between mileage and price for each S Class.  Hence using a sepereate KNN regression model for each S Class seems to be a good idea.
 
