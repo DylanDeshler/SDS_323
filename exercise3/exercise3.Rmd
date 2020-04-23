@@ -1,0 +1,266 @@
+---
+title: "exercise3"
+output: md_document
+---
+
+
+PREDICTIVE MODEL BUILDING
+
+```{r}
+library(tidyverse)
+
+data <- read.csv("~/Documents/R/SDS 323/SDS323-master/data/greenbuildings.csv")
+
+# remove na rows
+data <- data[-which(is.na(data), arr.ind = TRUE)[,1],]
+
+X  <- dplyr::select(data, -Rent, -LEED, -Energystar, -CS_PropertyID)
+y <- data$Rent
+
+X$green_rating <- factor(X$green_rating)
+X$net <- factor(X$net)
+X$cluster <- factor(X$cluster)
+X$renovated <- factor(X$renovated)
+X$class_a <- factor(X$class_a)
+X$class_b <- factor(X$class_b)
+X$amenities <- factor(X$amenities)
+
+green <- cbind(X,y)
+
+str(X)
+
+rmse <- function(y, y_hat) {
+  sqrt( mean( (y-y_hat)^2 ) )
+}
+```
+
+```{r}
+set.seed(100)
+library(lmvar)
+
+# null model
+l0 <- lm(y ~., data = green, x = TRUE, y = TRUE)
+cv.lm(l0, k = 10)
+```
+
+
+```{r}
+set.seed(100)
+library(glmnet)
+
+# prep the data
+X <- model.matrix(y ~. -1, data = green)
+
+# run lasso CV
+penalty <- c(rep(1, 695),0, rep(1, ncol(X) - 695 - 1))
+cv.lasso <- cv.glmnet(X, y, alpha = 1, family = "gaussian", nfolds = 10, penalty.factor = penalty)
+plot(cv.lasso)
+
+# K=10 CV
+k_grid <- seq(1, 10, by = 1)
+fold_id <- rep(1:10, length.out = nrow(X))
+fold_id <- sample(fold_id)
+for(k in k_grid) {
+  train_set <- which(fold_id != k)
+  X_train <- X[train_set,]
+  X_test <- X[-train_set,]
+  y_train <- y[train_set]
+  y_test <- y[-train_set]
+  
+  model <- glmnet(X_train, y_train, family = "gaussian", lambda = cv.lasso$lambda.1se)
+  y_hat <- predict(model, newx = X_test)
+  
+  k_grid[k] <- rmse(y_test, y_hat)
+}
+
+# rmse
+mean(k_grid)
+
+# get non-zero coeficients
+lasso_coefs <- rownames(coef(cv.lasso))[coef(cv.lasso)[,1] != 0]
+
+# print coefficients and beta-hat
+lasso_coefs
+coef(cv.lasso)[coef(cv.lasso)[,1]!=0]
+
+```
+Holding other features constant, green certification increases rent per square foot by $2.19 on  average.
+
+```{r}
+set.seed(100)
+library(FNN)
+
+# prep the data
+#X  <- dplyr::select(data, -Rent, -LEED, -Energystar, -CS_PropertyID)
+X <- dplyr::select(data, -Rent, size, green_rating, cluster_rent)
+n <- nrow(X)
+train_n <- n * 0.8
+
+# KNN regression
+k_grid <- seq(1, 30, by = 1)
+for(k in k_grid) {
+  err <- rep(0, 10)
+  
+  fold_id <- rep(1:10, length.out = n)
+  fold_id <- sample(fold_id)
+  for(i in 1:10) {
+    train_set <- which(fold_id != i)
+    X_train <- X[train_set,]
+    X_test <- X[-train_set,]
+    y_train <- y[train_set]
+    y_test <- y[-train_set]
+
+    scale_factors <- apply(X_train, 2, sd, na.rm = TRUE)
+    X_train_sc <- scale(X_train, scale = scale_factors)
+    X_test_sc <- scale(X_test, scale = scale_factors)
+
+    model <- knn.reg(X_train_sc, X_test_sc, y_train, k)
+    err[i] <- rmse(y_test, model$pred)
+  }
+  
+  k_grid[k] <- mean(err)
+}
+
+plot(k_grid)
+# rmse for optimal K
+min(k_grid)
+which.min(k_grid)
+```
+
+
+
+WHAT CAUSES WHAT?
+
+1.  Because there is no control group.  We could easily collect data from cities who are dispensing many police officers to combat their high crime rates.  This would lead us to mistakenly conclude that police and crime are positively correlated, when it is more likely that the crime rates are lower than they would have been with less police officers.
+
+2.  The researches isolated the effect of police officers by collecting data from high alert days.  These were days when many police officers were dispensed because of a terrorism threat, not because of crime.  This way the researches could invistigate the independent relationship between police officers and crime rate.
+
+3.  The researchers theorized that on high alert days many people may stay inside (for fear of terrorism), so crime would decrease on these days and it would not be a result of the increase in police officers.  So they used metro ridership as a measure of outdoor activity to control for this.
+
+4.  This model uses log(ridership) and dummy variables for high alert days, district 1, and their interaction to predict crime.  The table shows us that ridership has a positive relationship with crime and high alert status has a negative relationship with crime in district 1.  From this we can conclude that having more police officers decreases crime, because on high alert days (when there are more police officers) crime decreases.  We know this is because of the increase in police officers because the ridership term controls for how many people are outdoors.  We do not need to worry about the coefficient for the interaction term between high alert days and other districts being insignificant, because on high alert days police officers are mainly dispensed to district 1.
+
+
+CLUSTERING AND PCA
+
+
+
+```{r}
+library(tidyverse)
+library(caret)
+library(ggplot2)
+library(FactoMineR)
+library(LICORS)
+library(ggplot2)
+library(cluster)
+library(fpc)
+library(NbClust)
+library(boot)
+set.seed(100)
+
+data <- read.csv("~/Documents/R/SDS 323/SDS323-master/data/wine.csv")
+dmy <- dummyVars("~.", data = data)
+wine <- data.frame(predict(dmy, newdata = data))
+# color.red and color.white contain the same information as there are no mixed wines in the data set, so we only keep color.white
+wine$color.red <- NULL
+wine <- rename(wine, "white" = "color.white")
+
+# scale the data for PCA and Kmeans
+# exclude color and quality
+wine_sc <- scale(wine[,1:11], scale = TRUE, center = TRUE)
+# run PCA
+PCA(wine_sc, graph = TRUE)
+pr.out <- prcomp(wine[1:11], center = TRUE, scale = TRUE)
+summary(pr.out)
+
+# baseline
+mean(wine$white)
+
+# Use principle components to predict quality and color
+winePCA <- cbind(wine, pr.out$x)
+lm1 <- glm(white ~ PC1 + PC2, data = winePCA, family = binomial)
+pred <- sapply(predict(lm1, newdata = winePCA), function(x){ifelse(x>0.5, x <- 1, x <- 0)})
+summary(lm1)
+
+# CV
+K <- 10
+k_grid <- seq(1:K)
+fold_id <- rep(1:K, nrow(winePCA))
+fold_id <- sample(fold_id)
+for(k in 1:K) {
+  train_set <- which(fold_id != k)
+  train <- winePCA[train_set,]
+  test <- winePCA[-train_set,]
+  
+  model <- glm(white ~ PC1 + PC2, family = binomial, data = train)
+  y_hat <- predict(model, newdata = test)
+  y_hat <- ifelse(y_hat > 0.5, 1, 0)
+  
+  k_grid[k] <- mean(y_hat == test$white)
+}
+# accuracy
+mean(k_grid)
+
+lm2 <- glm(quality ~ PC1 + PC2 + PC3 + PC4 + PC5, data = winePCA, family = gaussian)
+summary(lm2)
+plot(predict(lm2, newdata = winePCA), winePCA$quality)
+# RMSE
+sqrt(cv.glm(data = winePCA, lm2, K = 10)$delta[1])
+
+# using 2 centers for the two colors of wine
+km2 <- kmeanspp(wine_sc, 2, nstart = 50)
+wineK <- cbind(wine, km2$cluster)
+wineK <- rename(wineK, "cluster" = "km2$cluster")
+
+# CV
+k_grid <- seq(1:K)
+fold_id <- rep(1:10, length.out = nrow(wineK))
+fold_id <- sample(fold_id)
+for(k in k_grid) {
+  train_set <- which(fold_id != k)
+  train <- wineK[train_set,]
+  test <- wineK[-train_set,]
+  
+  model <- glm(white ~ cluster, family = binomial, data = train)
+  y_hat <- predict(model, newdata = test)
+  y_hat <- ifelse(y_hat > 0.5, 1, 0)
+  
+  k_grid[k] <- mean(y_hat == test$white)
+}
+# accuracy
+mean(k_grid)
+
+wine_gap <- clusGap(wine_sc, FUN = kmeanspp, algorithm = "Lloyd", nstart = 50, K.max = 10, iter.max = 200, B = 10)
+plot(wine_gap)
+
+# Gap plot indicates that 5 is the optimal number of clusters
+km5 <- kmeanspp(wine_sc, 5, nstart = 50)
+wineK <- cbind(wine, km5$cluster)
+wineK <- rename(wineK, "cluster" = "km5$cluster")
+lm3 <- glm(quality ~ cluster, data = wineK, family = gaussian)
+# RMSE
+sqrt(cv.glm(data = wineK, lm3, K = 10)$delta[1])
+```
+The PCA is helpful for showing what chemical properties tend to be associated together.  We can see from the variable graph that wines high in fixed acidity also tend to be high in sulphates, chlorides, and volatile acidity.  After running PCA we can use the first two principle components to predict wine color with 98.4% accuracy.  We can also use the first five principle components to predict wine quality with a RMSE of 0.77.  This certainly is high enough accuracy to seperate high from low quality wines, where the model struggles is in predicting the exact quality of a wine, and in seperating middle of the road wines.   For clustering, I used k-means and my initial choice was to use two clusters, one for each color of wine.  Using only the clusters generated from k-means we can predict wine color with 98.6% accuracy, which is marginably better than we accomplished with PCA.  I then used a plot of Gap Statistic to find the optimal number of clusters, which was 5.  Then I ran k-means again with 5 clusters, and using only the cluster for each wine, the model was able to predict quality with a RMSE of 0.87.  This is still certainly a low enough RMSE to be able to seperate high from low quality wines.  However it is significantly worse than our model using PCA.  Because of this PCA makes more sense for the data, as it can predict wine color with a similar accuracy to cluster, performs better in predicting quality, and also provides information about the relationship of chemical properties.
+
+
+
+
+MARKET SEGMENTATION
+
+
+
+```{r}
+library(FactoMineR)
+library(LICORS)
+set.seed(123)
+
+data <- read.csv("~/Documents/R/SDS 323/SDS323-master/data/social_marketing.csv")
+tweets <- dplyr::select(data, -X)
+
+tweets_sc <- scale(tweets, scale = TRUE, center = TRUE)
+PCA(tweets_sc, graph = TRUE)
+pr.out <- prcomp(tweets, scale = TRUE, center = TRUE)
+pr.out$rotation[,1:4]
+summary(pr.out)
+```
+For this analysis I am assuming that NutrientH20 is a health/fitness company.  From looking at the first five principle components (which account for 40% of the variance in the data), we can pick out some strong relationships within NutrientH20's consumer basis.  Tweets that often involve cooking are positively correlated with photo sharing, fashion and are negatively correlated with sports fans, religion, and parenting.  We can also see that personal fitness, outdoors, and health are highly correlated.  If NutrientH20 is trying to target health concious tweeters (as their name seems to suggest), then they should market more towards people who tweet about personal fitness and the outdoors, because these people are likely to also care about health and nutrition.  And stay away from people who tweet about parenting, religion, and being sports fans, because these are negatively related with cooking.  Using this informaiton, NutrientH20 should be able to market to consumers more effectively and accurately.
