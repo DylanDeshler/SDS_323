@@ -1,0 +1,375 @@
+---
+title: "Adjusted Plus Minus for the English Premier League"
+output:
+  md_document: default
+  html_document: default
+  pdf_document:
+    fig_caption: yes        
+    includes:  
+      in_header: my_header.tex
+always_allow_html: true
+---
+
+# Abstract
+I set out to create an adjusted plus minus for English Premier League (EPL) soccer player's that would reduce multicollinearity in evaluating the top players in a given season.  Often a table of the player's with the 10 best plus minus' will be almost entirely comprised of player's from the the team that won the league that season.  Some of these player's are deserving of their spot at the top, but many are being dragged up by the coat tails of multicollinearity.  I found that my adjusted plus minus helped decorrelate players dramatically, and it is likely that incorporating FIFA ratings would have decorrelated them further.
+
+# Introduction
+
+Plus minus is a common way of measuring a player's importance to their team and their individual impact in a game.  Sports like basketball and hockey have been keeping track of player plus minus since the late 1960's.  A player's plus Minus can be used in many ways, from making important coaching decisions to sports betting to friendly arguments about who the MVP should be.  So if plus minus has been prominent in other sports for 60 years now, why has it not become a part of statistical analysis in soccer?  When I played fantasy soccer with a group of friends a few years back, we didn't look at plus minus to make our decisions, we picked based on gut feeling alone.  This was not because we were entirely unstatistically minded people, in fact we even saught out statistical measures to help us pick the best players.  The measures were either much to simple, like the fantasy league's valuation of a player, or were too much to handle without software.  Try aggergating average touches, tackles won, defenders beaten, passes made, shots on goal, goals, assists, fouls, ... the list goes on and on.  If there is this much data about every player, why is there not a simpler, more comprehensible way of digesting this information?  The answer is simple, multicollinearity.
+
+The comparisson I will make is true for many sports, but for simplicity I will only make it for basketball.  Basketball is high scoring, like really high scoring, in 2010 the average score of a basketball game was 100 points.  The premier league (the top divison in England, it is one of most popular and most competitive leagues in Europe and will the the focus of my project because I have the most familiarity with it) in 2017 had an average goals per game of about 2.5, which was an increase over the prior years.  On any given day a basketball game is likely to score 40 times as many points as a soccer game.  This means there is much less plus minus data in soccer than many other sports.  Further, three is the maximum number of subsitutions a team can make in a signle game, in the premier league.  There is no subsitution limit in basketball, and the average subsitutions per game is somewhere between 15 and 20.  More subsitutions means there are more times during a game where different people are playing together.  Lastly, there are 38 games in a premier league season while there are 82 games per season in the NBA.
+
+More points and subsitutions means points are frequently being scored with different groups of people playing, more games means more diverse data.  When we calculate a player's plus minus, and further their adjusted plus minus, there is likely to be much less collinearity between basketball players because we can more easily isolate player performance.  The opposite is true in soccer, as you will soon see the small amount of subsitutions and goals makes player data extremely multicollinear.  I hope to use player data from ESPN and FIFA over four (but really more like three and a half) seasons to create an adjusted plus minus for premier league that reduces multicollinearity in the top end.  I originally hoped to use FIFA ratings as a bayesian prior for ridge regression to further decorillate the data, however I found that to be far out of the scope of this class as it required using RStan, which I have never used before.  FIFA is a videogame that is released every year and many players from the top leagues around the world are in it.  FIFA ratings are a one number summary of a player's skill and they are aggregated from a 9000 member review group.  This group is comprised of coaches, professional scouts, and season ticket holders.  These are people who understand the sport well and have likely season every game in a season a particular player has played in, making them at the worst decent evaluations of a player's skill.  I had hoped that using FIFA ratings would help with the multicollinearity issue by providing a prior that was mostly independent of a player's team.
+
+# Methods
+
+ESPN has data on every EPL game for every recent season.  I scraped their website to get information on who was on the field, if and when they were subsituted, and which team scored while they were on the field.  I orignally did this with the help of a script I found online.  Unfortunately the script had not been updated in several years and no longer collected the correct data, as ESPN's website had changed slightly.  So I adapted the script into something tht worked much better (attached in the email).  I then wrote my own script for scraping player names, team, and FIFA ratings from the website soFIFA.  This website has data on the top 600 players from each league for every day the FIFA ratings were updated.  FIFA updates player ratings periodically throughout the season, so I decided to collect the data from the begining of the season, as my intention was to use the FIFA ratings as a bayesian prior for ridge regression and that made the most sense to me.  Unfortunately setting a custom prior in R was too difficult and clearly out of the scope of this class.  I instead used the data I collected from soFIFA to match player names with their teams.
+
+The ESPN data is a wide matrix where the first four columns are start, stop, home goal, and away goal.  Start indicates the begining of a period and stop indicates the end.  Periods end when either a half ends (at 45 and 90 + extra time) or when a player is subsituted out of the game.  The rest of the columns are players, their rows filled with indicator variables defined as: 1 for being on the field playing for the home team, -1 for being on the field and playing for the away team, 0 for not being on the field.
+
+I plan on using ridge regression for players on goal differential to calculate a penalized adjusted plus minus for every player.  I originally wanted to use FIFA ratings as a prior, but after collecting the data and matching it with the ESPN data I could not make it work.  The coefficients of the regression will be the adjusted plus minus, and I will use those coefficients to rank players.  I will also use the adjusted plus minus to predict goal differential and plot the RMSE for each season.
+
+
+```{r echo = FALSE, message = FALSE}
+library(raster)
+library(tidyverse)
+library(glmnet)
+library(knitr)
+library(kableExtra)
+library(ggplot2)
+
+espn2016 <- read.csv("~/Desktop/testing/new_espn2016.csv")
+espn2017 <- read.csv("~/Desktop/testing/new_espn2017.csv")
+espn2018 <- read.csv("~/Desktop/testing/new_espn2018.csv")
+espn2019 <- read.csv("~/Desktop/testing/new_espn2019.csv")
+# setwd("~/Documents/R/SDS 323/final project")
+
+# remove redundant row number column
+espn2016$X <- NULL
+espn2017$X <- NULL
+espn2018$X <- NULL
+espn2019$X <- NULL
+
+# NAs indicate the player was not on the field, hence their plus minus should be 0
+espn2016[is.na(espn2016)] <- 0
+espn2017[is.na(espn2017)] <- 0
+espn2018[is.na(espn2018)] <- 0
+espn2019[is.na(espn2019)] <- 0
+
+# some duplicate columns exist, so we combine them
+duplicate <- c("Hugo.Lloris.1", "Kepa.Arrizabalaga.1", "Rui.Patrício.1", "Jonas.Lössl.1", "Joe.Hart.1", "Martin.Dubravka.1", "Alex.McCarthy.1", "David.de.Gea.1")
+espn2018 <- dplyr::select(espn2018, -all_of(duplicate))
+
+fifa2016 <- read.csv("~/Documents/R/SDS 323/final project/fifa2016.csv")
+fifa2017 <- read.csv("~/Documents/R/SDS 323/final project/fifa2017.csv")
+fifa2018 <- read.csv("~/Documents/R/SDS 323/final project/fifa2018.csv")
+fifa2019 <- read.csv("~/Documents/R/SDS 323/final project/fifa2019.csv")
+
+# remove redundant row number column
+fifa2016$X <- NULL
+fifa2017$X <- NULL
+fifa2018$X <- NULL
+fifa2019$X <- NULL
+
+# remove accents
+colnames(espn2016) <- stringi::stri_trans_general(str = colnames(espn2016), id = "Latin-ASCII")
+colnames(espn2017) <- stringi::stri_trans_general(str = colnames(espn2017), id = "Latin-ASCII")
+colnames(espn2018) <- stringi::stri_trans_general(str = colnames(espn2018), id = "Latin-ASCII")
+colnames(espn2019) <- stringi::stri_trans_general(str = colnames(espn2019), id = "Latin-ASCII")
+fifa2016$Player <- stringi::stri_trans_general(str = fifa2016$Player, id = "Latin-ASCII")
+fifa2017$Player <- stringi::stri_trans_general(str = fifa2017$Player, id = "Latin-ASCII")
+fifa2018$Player <- stringi::stri_trans_general(str = fifa2018$Player, id = "Latin-ASCII")
+fifa2019$Player <- stringi::stri_trans_general(str = fifa2019$Player, id = "Latin-ASCII")
+
+# conform names to ESPN spelling
+fifa2016$Player <- ifelse(fifa2016$Player == "N'Golo Kante", "N Golo Kante", fifa2016$Player)
+fifa2016$Player <- ifelse(fifa2016$Player == "Cesar Azpilicueta Tanco", "Cesar Azpilicueta", fifa2016$Player)
+fifa2016$Player <- ifelse(fifa2016$Player == "Diego da Silva Costa", "Diego Costa", fifa2016$Player)
+fifa2016$Player <- ifelse(fifa2016$Player == "Pedro Rodriguez Ledesma", "Pedro", fifa2016$Player)
+fifa2016$Player <- ifelse(fifa2016$Player == "Fernando Reges", "Fernando", fifa2016$Player)
+fifa2016$Player <- ifelse(fifa2016$Player == "Heung Min Son", "Son Heung", fifa2016$Player)
+fifa2016$Player <- ifelse(fifa2016$Player == "Alberto Moreno Perez", "Alberto Moreno", fifa2016$Player)
+
+fifa2017$Player <- ifelse(fifa2017$Player == "Fernando Luiz Rosa", "Fernandinho", fifa2017$Player)
+fifa2017$Player <- ifelse(fifa2017$Player == "David Josue Jimenez Silva", "David Silva", fifa2017$Player)
+fifa2017$Player <- ifelse(fifa2017$Player == "Ederson Santana de Moraes", "Ederson", fifa2017$Player)
+
+
+fifa2018$Player <- ifelse(fifa2018$Player == "David De Gea Quintana", "David de Gea", fifa2018$Player)
+fifa2018$Player <- ifelse(fifa2018$Player == "David Josué Jiménez Silva", "David Silva", fifa2018$Player)
+fifa2018$Player <- ifelse(fifa2018$Player == "David Luiz Moreira Marinho", "David Luiz", fifa2018$Player)
+fifa2018$Player <- ifelse(fifa2018$Player == "Andreas Hugo Hoelgebaum Pereira", "Andreas Pereira", fifa2018$Player)
+fifa2018$Player <- ifelse(fifa2018$Player == "Frederico R. de Paula Santos", "Fred", fifa2018$Player)
+fifa2018$Player <- ifelse(fifa2018$Player == "Alisson Ramses Becker", "Alisson", fifa2018$Player)
+fifa2018$Player <- ifelse(fifa2018$Player == "Ederson Santana de Moraes", "Ederson", fifa2018$Player)
+fifa2018$Player <- ifelse(fifa2018$Player == "Bernardo Mota Carvalho e Silva", "Bernardo Silva", fifa2018$Player)
+fifa2018$Player <- ifelse(fifa2018$Player == "Heung Min Son", "Son Heung", fifa2018$Player)
+fifa2018$Player <- ifelse(fifa2018$Player == "Moussa Dembele", "Mousa Dembele", fifa2018$Player)
+fifa2018$Player <- ifelse(fifa2018$Player == "Andrew Robertson", "Andy Robertson", fifa2018$Player)
+fifa2018$Player <- ifelse(fifa2018$Player == "Lucas Rodrigues M. Silva", "Lucas Moura", fifa2018$Player)
+
+fifa2019$Player <- ifelse(fifa2019$Player == "Andrew Robertson", "Andy Robertson", fifa2019$Player)
+fifa2019$Player <- ifelse(fifa2019$Player == "Trent Alexander-Arnold", "Trent Alexander", fifa2019$Player)
+fifa2019$Player <- ifelse(fifa2019$Player == "Roberto Firmino Barbosa de Oliveira", "Roberto Firmino", fifa2019$Player)
+fifa2019$Player <- ifelse(fifa2019$Player == "Alisson Ramses Becker", "Alisson", fifa2019$Player)
+fifa2019$Player <- ifelse(fifa2019$Player == "Marcos Alonso Mendoza", "Marcos Alonso", fifa2019$Player)
+```
+
+
+```{r echo = FALSE, cache = TRUE}
+set.seed(100)
+
+get_players <- function(espn_data) {
+  return(dplyr::select(espn_data, -c(start, stop, home_goal, away_goal)))
+}
+
+involvement_check <- function(minutes_data, player_data, minutes_threshold) {
+  remove_players <- c()
+  j <- 1
+  for(i in 1:length(minutes_data)) {
+    if(minutes_data[i] < minutes_threshold) {
+      remove_players[j] <- i
+      j <- j + 1
+    }
+  }
+  
+  return(remove_players)
+}
+
+ridge_rmse <- function(espn, train_split = 0.7, K = 10) {
+  players <- get_players(espn)
+  y <- espn$home_goal - espn$away_goal
+  X <- sparse.model.matrix(y ~., data = players)
+  n <- nrow(players)
+  
+  train_ind <- sample.int(n,train_split*n)
+  X_train <- X[train_ind,]
+  X_test <- X[-train_ind,]
+  y_train <- y[train_ind]
+  y_test <- y[-train_ind]
+  cv.ridge <- cv.glmnet(X_train, y_train, alpha = 0, nfolds = K)
+  pred <- predict(cv.ridge, s = cv.ridge$lambda.1se, newx = X_test)
+  return(sqrt(mean((pred - y_test)^2)))
+}
+
+create_link_table <- function(espn, fifa) {
+  players <- get_players(espn)
+  player_names <- colnames(players)
+  player_names <- gsub(".", " ", player_names, fixed = TRUE)
+  
+  k <- 1
+  link_table <- data.frame(Player = character(),
+                           FIFA_Row = integer(),
+                           ESPN_Col = integer())
+  for(i in 1:length(player_names)) {
+    for(j in 1:nrow(fifa)) {
+      if(player_names[i] == fifa$Player[j]) {
+        link_table[k,] <- c(player_names[i],j,4+i)
+        k <- k + 1
+      }
+    }
+  }
+  
+  return(link_table)
+}
+
+link_table2016 <- create_link_table(espn2016, fifa2016)
+link_table2017 <- create_link_table(espn2017, fifa2017)
+link_table2018 <- create_link_table(espn2018, fifa2018)
+link_table2019 <- create_link_table(espn2019, fifa2019)
+
+get_team <- function(player_names, fifa, link_table) {
+  teams <- c()
+  k <- 1
+  for(i in 1:length(player_names)) {
+    link <- which(link_table$Player == player_names[i])
+    if(length(link) > 0) {
+      fifa_row <- as.integer(link_table$FIFA_Row[link])
+      teams[k] <- fifa$Team[fifa_row]
+    } else {
+      if(player_names[i] == "Marcos Alonso" || player_names[i] == "David Luiz") {
+        teams[k] <- "Chelsea"
+      } else if(player_names[i] == "Aymeric Laporte") {
+        teams[k] <- "Manchester City"
+      } else {
+        teams[k] <- "No Team Data"
+      }
+    }
+    k <- k + 1
+  }
+  return(teams)
+}
+
+get_table_data <- function(espn, fifa, link_table, minutes_threshold) {
+  players <- get_players(espn)
+
+  minutes_played <- (espn$stop-espn$start)*abs(players)
+  sum_minutes_played <- colSums(minutes_played)
+
+  # set a baseline minutes played
+  remove_players <- involvement_check(sum_minutes_played, players, minutes_threshold)
+  players[,remove_players] <- NULL
+
+  players_pm <- apply(players, 2, function(x) x*(espn$home_goal-espn$away_goal))
+  players_pm <- colSums(players_pm)
+
+  y <- espn$home_goal - espn$away_goal
+  X <- sparse.model.matrix(y ~. -1, data = players)
+
+  cv.ridge <- cv.glmnet(X, y, alpha = 0, nfolds = 10)
+  # plot(cv.ridge)
+
+  apm <- glmnet(X,y, alpha = 0, lambda = cv.ridge$lambda.1se)
+  players_apm <- coef(apm)[colnames(players),]
+
+  players_pm <- data.frame(players_pm)
+  player_names <- gsub(".", " ", row.names(players_pm), fixed = TRUE)
+  pm_df <- data.frame(Player = player_names, PlusMinus = players_pm$players_pm)
+  players_apm <- data.frame(players_apm)
+  apm_df <- data.frame(Player = player_names, PlusMinus = players_apm$players_apm)
+
+  table_data <- cbind(pm_df,
+                      AdjustedPlusMinus = round(apm_df$PlusMinus, digits = 6),
+                      Team = get_team(player_names, fifa, link_table))
+
+  return(table_data)
+}
+
+display_PM_table <- function(table_data, season, num_rows) {
+  order_by_pm <- head(table_data[order(table_data$PlusMinus, decreasing = TRUE), ], num_rows)
+  kable(order_by_pm, align = c("l","c","c","c"), caption = paste("Top Players by Plus Minus for", season)) %>%
+    kable_styling()
+}
+
+display_APM_table <- function(table_data, season, num_rows) {
+  order_by_apm <- head(table_data[order(table_data$AdjustedPlusMinus, decreasing = TRUE), ], num_rows)
+  kable(order_by_apm, align = c("l","c","c","c"), caption = paste("Top Players by Adjusted Plus Minus for", season)) %>%
+    kable_styling()
+}
+```
+
+
+# Results
+
+With the ESPN data set I could  calculate the score at any time in the game, by noting when a goal was scored and incrimenting the respective team's score.  I then calculated the goal differential at any period as (home score - away score).  With this I could calculate a player's plus minus for any period as their value for that period (1, -1, or 0) multiplied by the difference between home goal and away goal.  To calculate a player's plus minus over a particular game I simply sumed their plus minus for every period in the game, and to get their plus minus for the entire season I did the same thing for every period of every game.  This may seem alarming at first but if a player wasn't playing in a game (either on the bench or not on either team) their indicator variable would be 0 so any goals scored would not contribute to their plus minus.  So I summed these multiplications for every player column to calculate each player's season plus minus.  I did this for each season in my data set (2016/17 - 2019/20) and made a table of the top 10 players by plus minus for each season.  These tables make the multicollinearity problem very clear.  For reference, a win is three points, a draw is one point and a loss is zero points.
+
+For the 2016/17 season when Chelsea won the title by 7 points (Table 1), a large margin but not an alarming one, every single player in the top 10 of plus minus was a Chelsea player.  In a season with many other superstars like: Sadio Mane, Alisson, Marcos Alonso, and Salah to name a few.
+
+
+
+
+
+```{r echo = FALSE}
+set.seed(100)
+
+# 2016 season tables
+table <- get_table_data(espn2016, fifa2016, link_table2016, 150)
+display_PM_table(table, "2016/17", 10)
+
+# kable(head(table[order(table$PlusMinus, decreasing = TRUE), ], 10), align = c("l","c","c","c"), caption = paste("Top Players by Plus Minus for 2016/17")) %>% kable_styling()
+```
+
+
+
+
+
+The same is true for the 2017/18 season when Manchester City won the title by 19 points over second place Manchester United.  The only player in the top 10 who did not play for Manchester City was Paul Pogba, a generational talent who was Manchester United's star player.  The only table that is different is for the 2018/19 season, the top 5 player's all play for Liverpool and the next 5 all play for Manchester City.
+
+
+
+
+
+```{r echo = FALSE}
+# 2017 PM table
+table <- get_table_data(espn2017, fifa2017, link_table2017, 150)
+kable(head(table[order(table$PlusMinus, decreasing = TRUE), ], 10), align = c("l","c","c","c"), caption = paste("Top Players by Plus Minus for 2017/18")) %>% kable_styling()
+```
+
+
+
+
+The 2018/19 season was entirely dominated by these two teams, the third place team was 25 points behind second place, 9 wins behind Liverpool and 11 wins behind Manchester City.  This was a record breaking season where the competition was completely outclassed and it was a clear two dog race from the begining.
+
+
+
+
+
+```{r echo = FALSE}
+# 2018 PM table
+table <- get_table_data(espn2018, fifa2018, link_table2018, 150)
+kable(head(table[order(table$PlusMinus, decreasing = TRUE), ], 10), align = c("l","c","c","c"), caption = paste("Top Players by Plus Minus for 2018/19")) %>% kable_styling()
+```
+
+
+
+
+
+Finally, the unfinished 2019/20 season has been dominated by Liverpool, 29 games in and Liverpool is sitting comfortably 25 points above second place Manchester City.  Although the season is only 3/4ths the way through, Liverpool is within a win or two from winning the league.
+
+
+
+
+
+```{r echo = FALSE}
+# 2019 PM table
+table <- get_table_data(espn2019, fifa2019, link_table2019, 80)
+kable(head(table[order(table$PlusMinus, decreasing = TRUE), ], 10), align = c("l","c","c","c"), caption = paste("Top Players by Plus Minus for 2019/20")) %>% kable_styling()
+```
+
+
+
+
+The following are tables of the top 10 players for each season by adjusted plus minus.  As expected the tables are somewhat decorrelated by team, and also include more of the traditionally good players from their respective season.  The adjusted plus minus also helps to accomadate for playing time, a player who played excellent for part of the season before getting hurt likely would not make the top 10 in plus minus because they had less games played.  This player however could crack the top 10 in adjusted plus minus.
+
+
+
+
+```{r echo = FALSE}
+# 2016 APM table
+kable(head(table[order(table$AdjustedPlusMinus, decreasing = TRUE), ], 10), align = c("l","c","c","c"), caption = paste("Top Players by Adjusted Plus Minus for 2016/17")) %>% kable_styling()
+
+# 2017 APM table
+kable(head(table[order(table$AdjustedPlusMinus, decreasing = TRUE), ], 10), align = c("l","c","c","c"), caption = paste("Top Players by Adjusted Plus Minus for 2017/18")) %>% kable_styling()
+
+# 2018 APM table
+kable(head(table[order(table$AdjustedPlusMinus, decreasing = TRUE), ], 10), align = c("l","c","c","c"), caption = paste("Top Players by Adjusted Plus Minus for 2018/19")) %>% kable_styling()
+
+# 2019 APM table
+kable(head(table[order(table$AdjustedPlusMinus, decreasing = TRUE), ], 10), align = c("l","c","c","c"), caption = paste("Top Players by Adjusted Plus Minus for 2019/20")) %>% kable_styling()
+```
+
+
+
+
+
+```{r echo = FALSE, cache = TRUE}
+set.seed(100)
+
+# prediction RMSE by season
+k_2016 <- seq(1,10,by = 1)
+k_2017 <- seq(1,10,by = 1)
+k_2018 <- seq(1,10,by = 1)
+k_2019 <- seq(1,10,by = 1)
+for(k in seq(1,10,by = 1)) {
+  k_2016[k] <- ridge_rmse(espn2016)
+  k_2017[k] <- ridge_rmse(espn2017)
+  k_2018[k] <- ridge_rmse(espn2018)
+  k_2019[k] <- ridge_rmse(espn2019)
+}
+
+rmse_df <- data.frame(Season = c(2016,2017,2018, 2019), RMSE = c(mean(k_2016),mean(k_2017),mean(k_2018),mean(k_2019)))
+ggplot(rmse_df) +
+  geom_line(aes(x = Season, y = RMSE, color=RMSE), size = 2) +
+  ggtitle("RMSE for Goal Differential by Season") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+This is a plot of RMSE for goal differential, calculated using ridge regression on an unused testing set for each season.  As expecred the 2019/20 season has the largest RMSE, most likely because the season is unfinished and therefore has less data to regress on, rather than following the increasing trend that the plot seems to imply.
+
+
+
+
+# Conclusion
+
+
+In conclusion plus minus can be extremely misleading in soccer because of the multicollinearity problem.  Players who had little impact on title winning teams will have large plus minus' simply because they were on the field.  Because of this we must turn to another form of one number summary, or make adjustments to plus minus.  Here I have calculated an adjusted plus minus using ridge regression to penalize player contributions.  This APM (adjusted plus minus) succeeds mildly in decorrelating the data, howevere the significant of player coefficients should be questioned.  Running the same regression multiple times on different seeds will often lead to significant change in a player's APM.  In my experience the top 10 APM is relatively stable, as many of these players had distinct and important impacts on their team's success.  The "super sub" is also highly weighted by APM, a player who comes off the bench in the last 15 minutes and then is on the field for the goal will gain a larger bump from that goal.  In addition the player's APM is likely to be more stable because his data is less highly correlated with his teams.  Initially I had wanted to use FIFA ratings as a prior to help decorellate the data and make APM more stable, but this proved to be too difficult.  In summary APM is likely a better measure of player importance than PM in soccer as it helps seperate players from their teams.  APM can certainly seperate the good from the bad players, however small differences in APM should not be overstated, it is likely that a small change in APM is statistically insignificant, meaning that APM is a bad measure for deciding which players of a certain tier are better than others.  If soccer players can be sorted into great, good, and bad tiers, APM does a decent job of placing player's into their respective tier but does a poor job of ranking them within their tier.

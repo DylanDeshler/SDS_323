@@ -1,0 +1,677 @@
+"","Player","Team","Age","Overall"
+"1","Kevin De Bruyne","Manchester City",28,91
+"2","Virgil van Dijk","Liverpool",27,90
+"3","Mohamed Salah","Liverpool",27,90
+"4","N'Golo Kanté","Chelsea",28,89
+"5","Alisson Ramses Becker","Liverpool",26,89
+"6","Sergio Agüero","Manchester City",31,89
+"7","David De Gea Quintana","Manchester United",28,89
+"8","Harry Kane","Tottenham Hotspur",25,89
+"9","Pierre-Emerick Aubameyang","Arsenal",30,88
+"10","Sadio Mané","Liverpool",27,88
+"11","Ederson Santana de Moraes","Manchester City",25,88
+"12","David Josué Jiménez Silva","Manchester City",33,88
+"13","Raheem Sterling","Manchester City",24,88
+"14","Paul Pogba","Manchester United",26,88
+"15","Hugo Lloris","Tottenham Hotspur",32,88
+"16","Christian Eriksen","Tottenham Hotspur",27,88
+"17","Aymeric Laporte","Manchester City",25,87
+"18","Fernando Luiz Rosa","Manchester City",34,87
+"19","Bernardo Mota Carvalho e Silva","Manchester City",24,87
+"20","Toby Alderweireld","Tottenham Hotspur",30,87
+"21","Jan Vertonghen","Tottenham Hotspur",32,87
+"22","Heung Min Son","Tottenham Hotspur",26,87
+"23","Alexandre Lacazette","Arsenal",28,86
+"24","Leroy Sané","Manchester City",23,86
+"25","Roberto Firmino Barbosa de Oliveira","Liverpool",27,86
+"26","Andrew Robertson","Liverpool",25,85
+"27","Fábio Henrique Tavares","Liverpool",25,85
+"28","Rodrigo Hernández Cascante","Manchester City",23,85
+"29","Bernd Leno","Arsenal",27,84
+"30","Sokratis Papastathopoulos","Arsenal",31,84
+"31","Mesut Özil","Arsenal",30,84
+"32","Kyle Walker","Manchester City",29,84
+"33","Kepa Arrizabalaga","Chelsea",24,84
+"34","César Azpilicueta Tanco","Chelsea",29,84
+"35","Georginio Wijnaldum","Liverpool",28,84
+"36","İlkay Gündoğan","Manchester City",28,84
+"37","João Pedro Cavaco Cancelo","Manchester City",25,84
+"38","Riyad Mahrez","Manchester City",28,84
+"39","Dele Alli","Tottenham Hotspur",23,84
+"40","Felipe Anderson Pereira Gomes","West Ham United",26,84
+"41","João Filipe Moutinho","Wolverhampton Wanderers",32,84
+"42","David Luiz Moreira Marinho","Arsenal",32,83
+"43","Nicolas Pépé","Arsenal",24,83
+"44","Luiz Frello Filho Jorge","Chelsea",27,83
+"45","Kasper Schmeichel","Leicester City",32,83
+"46","Jordan Pickford","Everton",25,83
+"47","Lucas Digne","Everton",25,83
+"48","Gylfi Sigurðsson","Everton",29,83
+"49","Trent Alexander-Arnold","Liverpool",20,83
+"50","Jordan Henderson","Liverpool",29,83
+"51","John Stones","Manchester City",25,83
+"52","Nicolás Otamendi","Manchester City",31,83
+"53","Marcus Rashford","Manchester United",21,83
+"54","Anthony Martial","Manchester United",23,83
+"55","Giovani Lo Celso","Tottenham Hotspur
+Jun 30, ",23,83
+"56","Davinson Sánchez","Tottenham Hotspur",23,83
+"57","Lucas Rodrigues M. Silva","Tottenham Hotspur",26,83
+"58","Sébastien Haller","West Ham United",25,83
+"59","Rui Pedro dos Santos Patrício","Wolverhampton Wanderers",31,83
+"60","Wilfried Zaha","Crystal Palace",26,83
+"61","Lucas Torreira","Arsenal",23,82
+"62","Pedro Rodríguez Ledesma","Chelsea",31,82
+"63","Olivier Giroud","Chelsea",32,82
+"64","Willian Borges da Silva","Chelsea",30,82
+"65","Mateo Kovačić","Chelsea",25,82
+"66","Antonio Rüdiger","Chelsea",26,82
+"67","Łukasz Fabiański","West Ham United",34,82
+"68","Naby Keïta","Liverpool",24,82
+"69","Joel Matip","Liverpool",27,82
+"70","Xherdan Shaqiri","Liverpool",27,82
+"71","Gabriel Fernando de Jesus","Manchester City",22,82
+"72","Harry Maguire","Manchester United",26,82
+"73","Jesse Lingard","Manchester United",26,82
+"74","Juan Manuel Mata García","Manchester United",31,82
+"75","Alexis Sánchez","Manchester United",30,82
+"76","Ricardo Barbosa Pereira","Leicester City",25,82
+"77","Jamie Vardy","Leicester City",32,82
+"78","Rúben Diogo da Silva Neves","Wolverhampton Wanderers",22,82
+"79","Granit Xhaka","Arsenal",26,81
+"80","Daniel Ceballos Fernández","Arsenal
+Jun 30, ",22,81
+"81","Henrikh Mkhitaryan","Arsenal",30,81
+"82","Marcos Alonso Mendoza","Chelsea",28,81
+"83","James Milner","Liverpool",33,81
+"84","Victor Lindelöf","Manchester United",24,81
+"85","Luke Shaw","Manchester United",23,81
+"86","Nemanja Matić","Manchester United",30,81
+"87","Tanguy Ndombele","Tottenham Hotspur",22,81
+"88","Moussa Sissoko","Tottenham Hotspur",29,81
+"89","Pablo Fornals Malla","West Ham United",23,81
+"90","Wilfred Ndidi","Leicester City",22,81
+"91","Abdoulaye Doucouré","Watford",26,81
+"92","Luka Milivojević","Crystal Palace",28,81
+"93","Ryan Fraser","Bournemouth",25,81
+"94","Andreas Christensen","Chelsea",23,80
+"95","Héctor Bellerín Moruno","Arsenal",24,80
+"96","Tom Heaton","Aston Villa",33,80
+"97","Sergio Romero","Manchester United",32,80
+"98","Kurt Zouma","Chelsea",24,80
+"99","Tiémoué Bakayoko","Chelsea",24,80
+"100","Michael Keane","Everton",26,80
+"101","André Filipe Tavares Gomes","Everton",25,80
+"102","Bernard Anício Caldeira Duarte","Everton",26,80
+"103","Joe Gomez","Liverpool",22,80
+"104","Alex Oxlade-Chamberlain","Liverpool",25,80
+"105","Dejan Lovren","Liverpool",29,80
+"106","Mathew Ryan","Brighton & Hove Albion",27,80
+"107","Benjamin Mendy","Manchester City",24,80
+"108","Chris Smalling","Manchester United",29,80
+"109","Eric Bailly","Manchester United",25,80
+"110","Martin Dúbravka","Newcastle United",30,80
+"111","Miguel Almirón","Newcastle United",25,80
+"112","Danny Rose","Tottenham Hotspur",28,80
+"113","Harry Winks","Tottenham Hotspur",23,80
+"114","Erik Lamela","Tottenham Hotspur",27,80
+"115","Manuel Lanzini","West Ham United",26,80
+"116","Youri Tielemans","Leicester City",22,80
+"117","Raúl Jiménez","Wolverhampton Wanderers",28,80
+"118","Diogo José Teixeira da Silva","Wolverhampton Wanderers",22,80
+"119","Ralf Fährmann","Norwich City
+Jun 30, ",30,80
+"120","Ben Foster","Watford",36,80
+"121","Etienne Capoue","Watford",30,80
+"122","Roberto Pereyra","Watford",28,80
+"123","Gerard Deulofeu Lázaro","Watford",25,80
+"124","Nathan Aké","Bournemouth",24,80
+"125","Callum Wilson","Bournemouth",27,80
+"126","Ignacio Monreal Eraso","Arsenal",33,79
+"127","Shkodran Mustafi","Arsenal",27,79
+"128","Sead Kolašinac","Arsenal",26,79
+"129","Davide Zappacosta","Chelsea",27,79
+"130","Wesley Moraes Ferreira da Silva","Aston Villa",22,79
+"131","Christian Pulisic","Chelsea",20,79
+"132","Ross Barkley","Chelsea",25,79
+"133","Ruben Loftus-Cheek","Chelsea",23,79
+"134","Michy Batshuayi","Chelsea",25,79
+"135","Séamus Coleman","Everton",30,79
+"136","Jean-Philippe Gbamin","Everton",23,79
+"137","Richarlison de Andrade","Everton",22,79
+"138","Alex Iwobi","Everton",23,79
+"139","Nick Pope","Burnley",27,79
+"140","James Tarkowski","Burnley",26,79
+"141","Adam Lallana","Liverpool",31,79
+"142","Jefferson Lerma","Bournemouth",24,79
+"143","José Ángel Esmoris Tasende","Manchester City",22,79
+"144","Aaron Wan-Bissaka","Manchester United",21,79
+"145","Phil Jones","Manchester United",27,79
+"146","Frederico R. de Paula Santos","Manchester United",26,79
+"147","Fabian Schär","Newcastle United",27,79
+"148","Allan Saint-Maximin","Newcastle United",22,79
+"149","James Ward-Prowse","Southampton",24,79
+"150","Ben Davies","Tottenham Hotspur",26,79
+"151","Eric Dier","Tottenham Hotspur",25,79
+"152","Serge Aurier","Tottenham Hotspur",26,79
+"153","Fabián Balbuena","West Ham United",27,79
+"154","Jack Wilshere","West Ham United",27,79
+"155","Andriy Yarmolenko","West Ham United",29,79
+"156","Jonny Evans","Leicester City",31,79
+"157","Ben Chilwell","Leicester City",22,79
+"158","James Maddison","Leicester City",22,79
+"159","Willy Boly","Wolverhampton Wanderers",28,79
+"160","Jonathan Castro Otto","Wolverhampton Wanderers",25,79
+"161","Vicente Guaita Panadero","Crystal Palace",32,79
+"162","Mamadou Sakho","Crystal Palace",29,79
+"163","Leandro Trossard","Brighton & Hove Albion",24,79
+"164","Joshua King","Bournemouth",27,79
+"165","Florian Lejeune","Newcastle United",28,78
+"166","Ryan Bertrand","Southampton",29,78
+"167","Yerry Mina","Everton",24,78
+"168","Kevin Mirallas","Everton",31,78
+"169","Divock Origi","Liverpool",24,78
+"170","Nathaniel Clyne","Liverpool",28,78
+"171","James Tomkins","Crystal Palace",30,78
+"172","Oleksandr Zinchenko","Manchester City",22,78
+"173","Marcos Rojo","Manchester United",29,78
+"174","Jamaal Lascelles","Newcastle United",25,78
+"175","Joelinton Apolinário de Lira","Newcastle United",22,78
+"176","Jannik Vestergaard","Southampton",26,78
+"177","Mario Lemina","Southampton",25,78
+"178","Victor Wanyama","Tottenham Hotspur",28,78
+"179","Issa Diop","West Ham United",22,78
+"180","Declan Rice","West Ham United",20,78
+"181","Javier Hernández","West Ham United",31,78
+"182","Michail Antonio","West Ham United",29,78
+"183","Ayoze Pérez Gutiérrez","Leicester City",25,78
+"184","Adrien S. Perruchet Silva","Leicester City",30,78
+"185","Matt Doherty","Wolverhampton Wanderers",27,78
+"186","Leander Dendoncker","Wolverhampton Wanderers",24,78
+"187","Ibrahim Amadou","Norwich City
+Jun 30, ",26,78
+"188","Jose Holebas","Watford",35,78
+"189","Troy Deeney","Watford",31,78
+"190","Christian Kabasele","Watford",28,78
+"191","Ismaïla Sarr","Watford",21,78
+"192","Danny Welbeck","Watford",28,78
+"193","Ben Mee","Burnley",29,78
+"194","Jóhann Berg Guðmundsson","Burnley",28,78
+"195","Ashley Barnes","Burnley",29,78
+"196","Steven Defour","Burnley",31,78
+"197","Andros Townsend","Crystal Palace",27,78
+"198","Max Meyer","Crystal Palace",23,78
+"199","Shane Duffy","Brighton & Hove Albion",27,78
+"200","Lewis Dunk","Brighton & Hove Albion",27,78
+"201","Pascal Groß","Brighton & Hove Albion",28,78
+"202","Steve Cook","Bournemouth",28,78
+"203","Mohamed Elneny","Arsenal",26,77
+"204","Mahmoud Hassan","Aston Villa",24,77
+"205","Jack Grealish","Aston Villa",23,77
+"206","Emerson Palmieri dos Santos","Chelsea",24,77
+"207","Angelo Ogbonna","West Ham United",31,77
+"208","Marco van Ginkel","Chelsea",26,77
+"209","Dominic Calvert-Lewin","Everton",22,77
+"210","Theo Walcott","Everton",30,77
+"211","Djibril Sidibé","Everton
+Jun 30, ",26,77
+"212","Morgan Schneiderlin","Everton",29,77
+"213","Fabian Delph","Everton",29,77
+"214","Cenk Tosun","Everton",28,77
+"215","Claudio Bravo","Manchester City",36,77
+"216","Scott McTominay","Manchester United",22,77
+"217","Andreas Hugo Hoelgebaum Pereira","Manchester United",23,77
+"218","Ashley Young","Manchester United",33,77
+"219","Jonjo Shelvey","Newcastle United",27,77
+"220","Jan Bednarek","Southampton",23,77
+"221","Pierre-Emile Højbjerg","Southampton",23,77
+"222","Nathan Redmond","Southampton",25,77
+"223","Sofiane Boufal","Southampton",25,77
+"224","Roberto Jiménez Gago","West Ham United",33,77
+"225","Conor Coady","Wolverhampton Wanderers",26,77
+"226","Patrick Cutrone","Wolverhampton Wanderers",21,77
+"227","Romain Saïss","Wolverhampton Wanderers",29,77
+"228","Jesús Vallejo Lázaro","Wolverhampton Wanderers
+Jun 30, ",22,77
+"229","Teemu Pukki","Norwich City",29,77
+"230","Will Hughes","Watford",24,77
+"231","Daryl Janmaat","Watford",29,77
+"232","Ashley Westwood","Burnley",29,77
+"233","Chris Wood","Burnley",27,77
+"234","Joe Hart","Burnley",32,77
+"235","Danny Drinkwater","Burnley
+Jan 6, ",29,77
+"236","Gary Cahill","Crystal Palace",33,77
+"237","Davy Pröpper","Brighton & Hove Albion",27,77
+"238","Glenn Murray","Brighton & Hove Albion",35,77
+"239","David Brooks","Bournemouth",21,77
+"240","Lewis Cook","Bournemouth",22,77
+"241","Rob Holding","Arsenal",23,76
+"242","Kieran Tierney","Arsenal",22,76
+"243","Björn Engels","Aston Villa",24,76
+"244","Frédéric Guilbert","Aston Villa",24,76
+"245","Marvelous Nakamba","Aston Villa",25,76
+"246","Federico Fernández","Newcastle United",30,76
+"247","Sung Yueng Ki","Newcastle United",30,76
+"248","Angus Gunn","Southampton",23,76
+"249","Alex McCarthy","Southampton",29,76
+"250","Tammy Abraham","Chelsea",21,76
+"251","Robert Snodgrass","West Ham United",31,76
+"252","Winston Reid","West Ham United",30,76
+"253","Moise Kean","Everton",19,76
+"254","Ravel Morrison","Sheffield United",26,76
+"255","Tom Cleverley","Watford",29,76
+"256","Jack Cork","Burnley",30,76
+"257","Adrián San Miguel Castillo","Liverpool",32,76
+"258","Cheikhou Kouyaté","Crystal Palace",29,76
+"259","Phil Foden","Manchester City",19,76
+"260","DeAndre Yedlin","Newcastle United",25,76
+"261","Isaac Hayden","Newcastle United",24,76
+"262","Dwight Gayle","Newcastle United",28,76
+"263","Oriol Romeu Vidal","Southampton",27,76
+"264","Danny Ings","Southampton",26,76
+"265","Cédric Ricardo Alves Soares","Southampton",27,76
+"266","Mohamed Elyounoussi","Southampton",24,76
+"267","Aaron Cresswell","West Ham United",29,76
+"268","Mark Noble","West Ham United",32,76
+"269","Arthur Masuaku","West Ham United",25,76
+"270","Marc Albrighton","Leicester City",29,76
+"271","Dennis Praet","Leicester City",25,76
+"272","Filip Benković","Leicester City",21,76
+"273","Phil Jagielka","Sheffield United",36,76
+"274","Francisco Femenía Far","Watford",28,76
+"275","Craig Cathcart","Watford",30,76
+"276","Andre Gray","Watford",28,76
+"277","Heurelho Silva Gomes","Watford",38,76
+"278","Robbie Brady","Burnley",27,76
+"279","Charlie Taylor","Burnley",25,76
+"280","Jay Rodriguez","Burnley",29,76
+"281","Patrick van Aanholt","Crystal Palace",28,76
+"282","James McArthur","Crystal Palace",31,76
+"283","Víctor Camarasa Ferrando","Crystal Palace
+Jun 30, ",25,76
+"284","Martín Montoya Torralbo","Brighton & Hove Albion",28,76
+"285","Dale Stephens","Brighton & Hove Albion",30,76
+"286","Jürgen Locadia","Brighton & Hove Albion",25,76
+"287","Florin Andone","Brighton & Hove Albion",26,76
+"288","Aaron Mooy","Brighton & Hove Albion
+Jun 30, ",28,76
+"289","José Izquierdo","Brighton & Hove Albion",26,76
+"290","Adam Smith","Bournemouth",28,76
+"291","Arnaut Danjuma Groeneveld","Bournemouth",22,76
+"292","Ainsley Maitland-Niles","Arsenal",21,75
+"293","Mattéo Guendouzi","Arsenal",20,75
+"294","Lovre Kalinić","Aston Villa",29,75
+"295","Emiliano Martínez","Arsenal",26,75
+"296","Calum Chambers","Arsenal",24,75
+"297","Willy Caballero","Chelsea",37,75
+"298","Tom Davies","Everton",21,75
+"299","John McGinn","Aston Villa",24,75
+"300","Mason Mount","Chelsea",20,75
+"301","Maya Yoshida","Southampton",30,75
+"302","Paulo Gazzaniga","Tottenham Hotspur",27,75
+"303","Robert Kenedy Nunes do Nascimento","Chelsea",23,75
+"304","Nampalys Mendy","Leicester City",27,75
+"305","Leighton Baines","Everton",34,75
+"306","Jonas Lössl","Everton",30,75
+"307","Mason Holgate","Everton",22,75
+"308","Oliver Norwood","Sheffield United",28,75
+"309","Yannick Bolasie","Everton",30,75
+"310","Martin Kelly","Crystal Palace",29,75
+"311","Artur Boruc","Bournemouth",39,75
+"312","Andrew Surman","Bournemouth",32,75
+"313","Simon Francis","Bournemouth",34,75
+"314","José Diogo Dalot Teixeira","Manchester United",20,75
+"315","Matteo Darmian","Manchester United",29,75
+"316","Paul Dummett","Newcastle United",27,75
+"317","Matt Ritchie","Newcastle United",29,75
+"318","Jetro Willems","Newcastle United
+Jun 30, ",25,75
+"319","Ciaran Clark","Newcastle United",29,75
+"320","Yoshinori Mutō","Newcastle United",26,75
+"321","Andy Carroll","Newcastle United",30,75
+"322","Stuart Armstrong","Southampton",27,75
+"323","Wesley Hoedt","Southampton",25,75
+"324","Guido Carrillo","Southampton",28,75
+"325","Ryan Sessegnon","Tottenham Hotspur",19,75
+"326","Pablo Zabaleta","West Ham United",34,75
+"327","Carlos Sánchez","West Ham United",33,75
+"328","Demarai Gray","Leicester City",23,75
+"329","Wes Morgan","Leicester City",35,75
+"330","Harvey Barnes","Leicester City",21,75
+"331","Josip Drmić","Norwich City",26,75
+"332","Dean Henderson","Sheffield United
+Jun 30, ",22,75
+"333","Craig Dawson","Watford",29,75
+"334","Nathaniel Chalobah","Watford",24,75
+"335","Adrian Mariappa","Watford",32,75
+"336","Stefano Okaka","Watford",29,75
+"337","Juan Camilo Hernández","Watford",20,75
+"338","Matthew Lowton","Burnley",30,75
+"339","Jeff Hendrick","Burnley",27,75
+"340","Scott Dann","Crystal Palace",32,75
+"341","Christian Benteke","Crystal Palace",28,75
+"342","Wayne Hennessey","Crystal Palace",32,75
+"343","James McCarthy","Crystal Palace",28,75
+"344","Jordan Ayew","Crystal Palace",27,75
+"345","Solly March","Brighton & Hove Albion",24,75
+"346","Neal Maupay","Brighton & Hove Albion",22,75
+"347","Bernardo Fernandes","Brighton & Hove Albion",24,75
+"348","Yves Bissouma","Brighton & Hove Albion",22,75
+"349","Alireza Jahanbakhsh","Brighton & Hove Albion",25,75
+"350","Harry Wilson","Bournemouth
+Jun 30, ",22,75
+"351","Junior Stanislas","Bournemouth",29,75
+"352","Asmir Begović","Bournemouth",32,75
+"353","Dan Gosling","Bournemouth",29,75
+"354","Conor Hourihane","Aston Villa",28,74
+"355","Abdul Rahman Baba","Chelsea",24,74
+"356","Tyrone Mings","Aston Villa",26,74
+"357","Anwar El Ghazi","Aston Villa",24,74
+"358","Douglas Luiz Soares de Paulo","Aston Villa",21,74
+"359","James Chester","Aston Villa",30,74
+"360","Callum Hudson-Odoi","Chelsea",18,74
+"361","John Egan","Sheffield United",26,74
+"362","Aleix García Serrano","Manchester City",22,74
+"363","Javier Manquillo Gaitán","Newcastle United",25,74
+"364","Emil Krafth","Newcastle United",24,74
+"365","Christian Atsu","Newcastle United",27,74
+"366","Henri Saivet","Newcastle United",28,74
+"367","Jack Stephens","Southampton",25,74
+"368","Shane Long","Southampton",32,74
+"369","Che Adams","Southampton",22,74
+"370","Moussa Djenepo","Southampton",21,74
+"371","Kyle Walker-Peters","Tottenham Hotspur",22,74
+"372","Juan Foyth","Tottenham Hotspur",21,74
+"373","Georges-Kévin Nkoudou","Tottenham Hotspur",24,74
+"374","Ryan Fredericks","West Ham United",26,74
+"375","Albian Ajeti","West Ham United",22,74
+"376","Çağlar Söyüncü","Leicester City",23,74
+"377","Hamza Choudhury","Leicester City",21,74
+"378","Rachid Ghezzal","Leicester City",27,74
+"379","Islam Slimani","Leicester City",31,74
+"380","Adama Traoré Diarra","Wolverhampton Wanderers",23,74
+"381","Emiliano Buendía","Norwich City",22,74
+"382","Patrick Roberts","Norwich City
+Jun 30, ",22,74
+"383","Timm Klose","Norwich City",31,74
+"384","Jack O'Connell","Sheffield United",25,74
+"385","Enda Stevens","Sheffield United",28,74
+"386","Billy Sharp","Sheffield United",33,74
+"387","Oliver McBurnie","Sheffield United",23,74
+"388","Adam Masina","Watford",25,74
+"389","Dimitri Foulquier","Watford",26,74
+"390","Marvin Zeegelaar","Watford",28,74
+"391","Dwight McNeil","Burnley",19,74
+"392","Aaron Lennon","Burnley",32,74
+"393","Ben Gibson","Burnley",26,74
+"394","Jeffrey Schlupp","Crystal Palace",26,74
+"395","Adam Webster","Brighton & Hove Albion",24,74
+"396","Gaëtan Bong","Brighton & Hove Albion",31,74
+"397","Leon Balogun","Brighton & Hove Albion",31,74
+"398","Philip Billing","Bournemouth",23,74
+"399","Diego Rico Salguero","Bournemouth",26,74
+"400","Jonathan Kodjia","Aston Villa",29,73
+"401","Maarten Stekelenburg","Everton",36,73
+"402","Jose Ignacio Peleteiro Ramallo","Aston Villa",28,73
+"403","Karl Darlow","Newcastle United",28,73
+"404","Reece James","Chelsea",19,73
+"405","Danny Ward","Leicester City",26,73
+"406","Ryan Bennett","Wolverhampton Wanderers",29,73
+"407","Oumar Niasse","Everton",29,73
+"408","Kevin Long","Burnley",28,73
+"409","Ryan Kent","Liverpool",22,73
+"410","Joel Ward","Crystal Palace",29,73
+"411","Axel Tuanzebe","Manchester United",21,73
+"412","Timothy Fosu-Mensah","Manchester United",21,73
+"413","Fraser Forster","Southampton",31,73
+"414","Kelechi Iheanacho","Leicester City",22,73
+"415","Christian Fuchs","Leicester City",33,73
+"416","Daniel Amartey","Leicester City",24,73
+"417","Tim Krul","Norwich City",31,73
+"418","Tom Trybull","Norwich City",26,73
+"419","Marco Stiepermann","Norwich City",28,73
+"420","Moritz Leitner","Norwich City",26,73
+"421","Onel Hernández","Norwich City",26,73
+"422","Mario Vrančić","Norwich City",30,73
+"423","Chris Basham","Sheffield United",30,73
+"424","John Fleck","Sheffield United",27,73
+"425","Callum Robinson","Sheffield United",24,73
+"426","Luke Freeman","Sheffield United",27,73
+"427","Isaac Success","Watford",23,73
+"428","Sebastian Prödl","Watford",32,73
+"429","Erik Pieters","Burnley",30,73
+"430","Matěj Vydra","Burnley",27,73
+"431","Ezequiel Schelotto","Brighton & Hove Albion",30,73
+"432","Charlie Daniels","Bournemouth",32,73
+"433","Chris Mepham","Bournemouth",21,73
+"434","Jordon Ibe","Bournemouth",23,73
+"435","Ørjan Nyland","Aston Villa",28,72
+"436","Reiss Nelson","Arsenal",19,72
+"437","Matt Targett","Aston Villa",23,72
+"438","Fikayo Tomori","Chelsea",21,72
+"439","Michael Hector","Chelsea",26,72
+"440","Lucas Domingues Piazon","Chelsea",25,72
+"441","Tudor Băluță","Brighton & Hove Albion",20,72
+"442","Scott Carson","Manchester City
+Jun 30, ",33,72
+"443","Daniel James","Manchester United",21,72
+"444","Lee Grant","Manchester United",36,72
+"445","Sean Longstaff","Newcastle United",21,72
+"446","Leonardo B. Lohner Maia","Wolverhampton Wanderers",25,72
+"447","Max Aarons","Norwich City",19,72
+"448","Christoph Zimmermann","Norwich City",26,72
+"449","Jamal Lewis","Norwich City",21,72
+"450","Kenny McLean","Norwich City",27,72
+"451","Sam Byram","Norwich City",25,72
+"452","David McGoldrick","Sheffield United",31,72
+"453","Ben Osborn","Sheffield United",24,72
+"454","Muhamed Bešić","Sheffield United
+Jun 30, ",26,72
+"455","Ken Sema","Watford",25,72
+"456","Adalberto Peñaranda","Watford",22,72
+"457","Phil Bardsley","Burnley",34,72
+"458","Jaïro Riedewald","Crystal Palace",22,72
+"459","Bartosz Kapustka","Leicester City",22,71
+"460","Jack Colback","Newcastle United",29,71
+"461","Kevin Danso","Southampton
+Jun 30, ",20,71
+"462","Ben Godfrey","Norwich City",21,71
+"463","Alexander Tettey","Norwich City",33,71
+"464","Lys Mousset","Sheffield United",23,71
+"465","Dan Burn","Brighton & Hove Albion",27,71
+"466","Konstantinos Mavropanos","Arsenal",21,70
+"467","Ahmed Elmohamady","Aston Villa",31,70
+"468","Neil Taylor","Aston Villa",30,70
+"469","Henri Lansbury","Aston Villa",28,70
+"470","Jed Steer","Aston Villa",26,70
+"471","Ezri Konsa","Aston Villa",21,70
+"472","Cuco Martina","Everton",29,70
+"473","Michael Verrips","Sheffield United",22,70
+"474","Rolando Aarons","Newcastle United",23,70
+"475","Rob Elliot","Newcastle United",33,70
+"476","Fousseni Diabaté","Leicester City",23,70
+"477","Rúben Nascimento Vinagre","Wolverhampton Wanderers",20,70
+"478","John Ruddy","Wolverhampton Wanderers",32,70
+"479","Morgan Gibbs-White","Wolverhampton Wanderers",19,70
+"480","Roderick J. Gonçalves Miranda","Wolverhampton Wanderers",28,70
+"481","Grant Hanley","Norwich City",27,70
+"482","Philip Heise","Norwich City",28,70
+"483","Leon Clarke","Sheffield United",34,70
+"484","Connor Wickham","Crystal Palace",26,70
+"485","Dominic Solanke","Bournemouth",21,70
+"486","Jack Stacey","Bournemouth",23,70
+"487","Jamal Blackman","Chelsea",25,69
+"488","Callum Connolly","Everton",21,69
+"489","Yan Valery","Southampton",20,69
+"490","Marcus Edwards","Tottenham Hotspur",20,69
+"491","James Justin","Leicester City",21,69
+"492","George Baldock","Sheffield United",26,69
+"493","Richard Stearman","Sheffield United",31,69
+"494","Domingos Quina","Watford",19,69
+"495","Daniel Bachmann","Watford",24,69
+"496","Bailey Peacock-Farrell","Burnley",22,69
+"497","Tomer Hemed","Brighton & Hove Albion",32,69
+"498","Gabriel Teodoro Martinelli Silva","Arsenal",18,68
+"499","Kortney Hause","Aston Villa",23,68
+"500","Michael McGovern","Norwich City",34,68
+"501","Kieron Freeman","Sheffield United",27,68
+"502","Pontus Dahlberg","Watford",20,68
+"503","Jason Steele","Brighton & Hove Albion",28,68
+"504","Angel Gomes","Manchester United",18,68
+"505","Eldin Jakupović","Leicester City",34,68
+"506","Matty James","Leicester City",27,68
+"507","Todd Cantwell","Norwich City",21,68
+"508","Dennis Srbeny","Norwich City",25,68
+"509","Jake Wright","Sheffield United",33,68
+"510","Jimmy Dunne","Burnley",21,68
+"511","David Button","Brighton & Hove Albion",30,68
+"512","Lloyd Kelly","Bournemouth",20,68
+"513","Aaron Ramsdale","Bournemouth",21,68
+"514","Joseph Willock","Arsenal",19,67
+"515","Simon Moore","Sheffield United",29,67
+"516","Beni Baningime","Everton",20,67
+"517","Herbie Kane","Liverpool",20,67
+"518","Mason Greenwood","Manchester United",17,67
+"519","Cameron Borthwick-Jackson","Manchester United",22,67
+"520","Achraf Lazaar","Newcastle United",27,67
+"521","Jake Hesketh","Southampton",23,67
+"522","Oliver Skipp","Tottenham Hotspur",18,67
+"523","Gonçalo Bento Soares Cardoso","West Ham United",18,67
+"524","Alexandre Costa Silva","West Ham United",22,67
+"525","John Lundstram","Sheffield United",25,67
+"526","Ricky Holmes","Sheffield United",32,67
+"527","Jack Simpson","Bournemouth",22,67
+"528","Matt Macey","Arsenal",24,66
+"529","Aaron Tshibola","Aston Villa",24,66
+"530","Sepp van den Berg","Liverpool",17,66
+"531","Pedro Chirivella Burgos","Liverpool",22,66
+"532","Stephen Henderson","Crystal Palace",31,66
+"533","Eric García Martret","Manchester City",18,66
+"534","Claudio Gomes","Manchester City",18,66
+"535","Demetri Mitchell","Manchester United",22,66
+"536","Sam McQueen","Southampton",24,66
+"537","David Martin","West Ham United",33,66
+"538","Pedro Lomba Neto","Wolverhampton Wanderers",19,66
+"539","Samir Carruthers","Sheffield United",26,66
+"540","Jarosław Jach","Crystal Palace",25,66
+"541","Kelechi Nwakali","Arsenal",21,65
+"542","Bukayo Saka","Arsenal",17,65
+"543","Emile Smith Rowe","Arsenal",18,65
+"544","Keinan Davis","Aston Villa",21,65
+"545","Andy Lonergan","Liverpool",35,65
+"546","Tahith Chong","Manchester United",19,65
+"547","Japhet Tanganga","Tottenham Hotspur",20,65
+"548","Sam Hughes","Leicester City",22,65
+"549","George Thomas","Leicester City",22,65
+"550","Jordan Graham","Wolverhampton Wanderers",24,65
+"551","Phil Ofosu-Ayeh","Wolverhampton Wanderers",27,65
+"552","Ryan Inniss","Crystal Palace",24,65
+"553","Soufyan Ahannach","Brighton & Hove Albion",23,65
+"554","Anders Dreyer","Brighton & Hove Albion",21,65
+"555","Morgan Feeney","Everton",20,64
+"556","Ellis Simms","Everton",18,64
+"557","Kean Bryan","Sheffield United",22,64
+"558","Adam Legzdins","Burnley",32,64
+"559","Rhian Brewster","Liverpool",19,64
+"560","Troy Parrott","Tottenham Hotspur",17,64
+"561","Aaron Connolly","Brighton & Hove Albion",19,64
+"562","Mark Travers","Bournemouth",20,64
+"563","Zech Medley","Arsenal",18,63
+"564","Manasse Mampala","Everton",18,63
+"565","Michael Obafemi","Southampton",18,63
+"566","Jack Roles","Tottenham Hotspur",20,63
+"567","Harry Burgoyne","Wolverhampton Wanderers",22,63
+"568","James Garner","Manchester United",18,63
+"569","Víctor Fernández Satué","Newcastle United",21,63
+"570","George Marsh","Tottenham Hotspur",20,63
+"571","Anthony Georgiou","Tottenham Hotspur",22,63
+"572","Alfie Whiteman","Tottenham Hotspur",20,63
+"573","Meritan Shabani","Wolverhampton Wanderers",20,63
+"574","Adam Idah","Norwich City",18,63
+"575","Ben Heneghan","Sheffield United",25,63
+"576","Harry Lewis","Southampton",21,62
+"577","Billy Gilmour","Chelsea",18,62
+"578","Benny Ashley-Seal","Wolverhampton Wanderers",20,62
+"579","Fraser Hornby","Everton",19,62
+"580","Adam Phillips","Burnley",21,62
+"581","Ki-Jana Hoever","Liverpool",17,62
+"582","Felix Nmecha","Manchester City",18,62
+"583","Matthew Longstaff","Newcastle United",19,62
+"584","Callum Slattery","Southampton",20,62
+"585","Connor Johnson","Wolverhampton Wanderers",21,62
+"586","Josh Benson","Burnley",19,62
+"587","Nnamdi Ofoborh","Bournemouth",19,62
+"588","Alex Dobre","Bournemouth",20,62
+"589","Curtis Jones","Liverpool",18,61
+"590","Lorenzo Gonzalez","Manchester City",19,61
+"591","Alexandru Paşcanu","Leicester City",20,61
+"592","Aidan Fitzpatrick","Norwich City",18,61
+"593","Jamie Sterry","Newcastle United",23,61
+"594","Kayne Ramsay","Southampton",18,61
+"595","Nathan Holland","West Ham United",21,61
+"596","Kyle Taylor","Bournemouth",19,61
+"597","Paul Glatzel","Liverpool",18,60
+"598","Callum O'Hare","Aston Villa",21,60
+"599","Gassan Ahadme","Norwich City",18,60
+"600","Adam Lewis","Liverpool",19,60
+"601","James Tilley","Brighton & Hove Albion",21,60
+"602","Benjamín Garré","Manchester City",18,60
+"603","Joel Latibeaudiere","Manchester City",19,60
+"604","Marcus Barnes","Southampton",22,60
+"605","Max Kilman","Wolverhampton Wanderers",22,60
+"606","Bruno André Cavaco Jordão","Wolverhampton Wanderers",20,60
+"607","John Kitolano","Wolverhampton Wanderers",19,60
+"608","Ali Koiki","Burnley",19,60
+"609","Matt Butcher","Bournemouth",22,60
+"610","Yasser Larouci","Liverpool",18,59
+"611","Gavin Bazunu","Manchester City",17,59
+"612","Jamie Bowden","Tottenham Hotspur",17,59
+"613","Josh Martin","Norwich City",17,59
+"614","Caoimhin Kelleher","Liverpool",20,59
+"615","James Daly","Crystal Palace",19,59
+"616","Tyler Cordner","Bournemouth",20,59
+"617","Daniel Adshead","Norwich City",17,59
+"618","Luke Dreher","Crystal Palace",20,59
+"619","Nya Kirby","Crystal Palace",19,59
+"620","Mésaque Geremias Djú","West Ham United",20,58
+"621","Timi Odusina","Norwich City",19,58
+"622","Joe Powell","West Ham United",20,58
+"623","Conor Coventry","West Ham United",19,58
+"624","Oskar Buur Rasmussen","Wolverhampton Wanderers",21,58
+"625","Giovanni McGregor","Crystal Palace",20,58
+"626","Kian Flanagan","Crystal Palace",19,58
+"627","Jason Lokilo","Crystal Palace",20,58
+"628","Max Sanders","Brighton & Hove Albion",20,58
+"629","Robbie Burton","Arsenal",19,57
+"630","Rob Nizet","Norwich City",17,57
+"631","Robert Harker","Burnley",19,57
+"632","Jake Vokins","Southampton",19,57
+"633","Dan Kemp","West Ham United",20,57
+"634","Oladapo Afolayan","West Ham United",21,57
+"635","Tom Dele-Bashiru","Watford",19,57
+"636","Ryan Cooney","Burnley",19,57
+"637","Sam Woods","Crystal Palace",20,57
+"638","Tyreece John-Jules","Arsenal",18,56
+"639","Tyreke Wilson","Manchester City",19,56
+"640","Dominic Revan","Aston Villa",18,56
+"641","Dion Sanderson","Wolverhampton Wanderers",19,56
+"642","Steven Alzate","Brighton & Hove Albion",20,56
+"643","Owen Bailey","Newcastle United",20,56
+"644","Stephen Mallon","Sheffield United",20,56
+"645","Anthony Driscoll-Glennon","Burnley",19,56
+"646","Easah Suliman","Aston Villa",21,55
+"647","Ben Johnson","West Ham United",19,55
+"648","Taylor Perry","Wolverhampton Wanderers",17,55
+"649","Akin Famewo","Norwich City",20,55
+"650","Daniel Grimshaw","Manchester City",21,55
+"651","Nikola Tavares","Crystal Palace",20,55
+"652","Jack Clarke","Aston Villa",20,54
+"653","Jamie Cumming","Chelsea",19,54
+"654","Keenan Ferguson","Sheffield United",19,54
+"655","Jordan Cox","Aston Villa",20,53
+"656","Jacob Ramsey","Aston Villa",18,53
+"657","Marcus Dewhurst","Sheffield United",18,53
+"658","George McMahon","Burnley",19,53
+"659","Callum Rowe","Aston Villa",19,52
+"660","Jake Young","Sheffield United",17,51
